@@ -1,16 +1,16 @@
-// Simple test endpoint + CORS (so your site can call it from anywhere)
 export default async function handler(req, res) {
-  // CORS headers (you can later swap * for your domain)
+  // Allow requests from any origin (for testing)
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
+  // Handle preflight OPTIONS request
   if (req.method === "OPTIONS") {
-    // Preflight
     res.status(200).end();
     return;
   }
 
+  // Only allow POST
   if (req.method !== "POST") {
     res.status(405).json({ error: "Only POST allowed" });
     return;
